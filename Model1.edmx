@@ -1,0 +1,472 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="Хранилище BD_2905Model" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Delivery">
+          <Key>
+            <PropertyRef Name="IDDelivery" />
+          </Key>
+          <Property Name="IDDelivery" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IDOrder" Type="int" Nullable="false" />
+          <Property Name="IDTransport" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Orders">
+          <Key>
+            <PropertyRef Name="IDOrder" />
+          </Key>
+          <Property Name="IDOrder" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DateOrder" Type="date" Nullable="false" />
+          <Property Name="NameClient" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="LastNameClient" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Phone" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="RasstoyanieDelivery" Type="int" Nullable="false" />
+          <Property Name="VesGruza" Type="int" Nullable="false" />
+          <Property Name="SrokDelivery" Type="date" Nullable="false" />
+          <Property Name="CountOrder" Type="int" Nullable="false" />
+          <Property Name="IDUser" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Role">
+          <Key>
+            <PropertyRef Name="IDRole" />
+          </Key>
+          <Property Name="IDRole" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NameRole" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="StatusTransport">
+          <Key>
+            <PropertyRef Name="IDStatusTransport" />
+          </Key>
+          <Property Name="IDStatusTransport" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NameStatus" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TOTransport">
+          <Key>
+            <PropertyRef Name="IDTO" />
+          </Key>
+          <Property Name="IDTO" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IDTransport" Type="int" Nullable="false" />
+          <Property Name="Master" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="PeriodTO" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Transport">
+          <Key>
+            <PropertyRef Name="IDTransport" />
+          </Key>
+          <Property Name="IDTransport" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Marka" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="GosNumber" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="IDStatusTransport" Type="int" Nullable="false" />
+          <Property Name="MestopolozenieTransport" Type="nvarchar(max)" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Users">
+          <Key>
+            <PropertyRef Name="IDUser" />
+          </Key>
+          <Property Name="IDUser" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IDRole" Type="int" Nullable="false" />
+          <Property Name="NameUser" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="LastNameUser" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Login" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Password" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Delivery_Orders">
+          <End Role="Orders" Type="Self.Orders" Multiplicity="1" />
+          <End Role="Delivery" Type="Self.Delivery" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Orders">
+              <PropertyRef Name="IDOrder" />
+            </Principal>
+            <Dependent Role="Delivery">
+              <PropertyRef Name="IDOrder" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Delivery_Transport">
+          <End Role="Transport" Type="Self.Transport" Multiplicity="1" />
+          <End Role="Delivery" Type="Self.Delivery" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Transport">
+              <PropertyRef Name="IDTransport" />
+            </Principal>
+            <Dependent Role="Delivery">
+              <PropertyRef Name="IDTransport" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Orders_Users">
+          <End Role="Users" Type="Self.Users" Multiplicity="1" />
+          <End Role="Orders" Type="Self.Orders" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="IDUser" />
+            </Principal>
+            <Dependent Role="Orders">
+              <PropertyRef Name="IDUser" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TOTransport_Transport">
+          <End Role="Transport" Type="Self.Transport" Multiplicity="1" />
+          <End Role="TOTransport" Type="Self.TOTransport" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Transport">
+              <PropertyRef Name="IDTransport" />
+            </Principal>
+            <Dependent Role="TOTransport">
+              <PropertyRef Name="IDTransport" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Transport_StatusTransport">
+          <End Role="StatusTransport" Type="Self.StatusTransport" Multiplicity="1" />
+          <End Role="Transport" Type="Self.Transport" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="StatusTransport">
+              <PropertyRef Name="IDStatusTransport" />
+            </Principal>
+            <Dependent Role="Transport">
+              <PropertyRef Name="IDStatusTransport" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Users_Role">
+          <End Role="Role" Type="Self.Role" Multiplicity="1" />
+          <End Role="Users" Type="Self.Users" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Role">
+              <PropertyRef Name="IDRole" />
+            </Principal>
+            <Dependent Role="Users">
+              <PropertyRef Name="IDRole" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Хранилище BD_2905ModelContainer">
+          <EntitySet Name="Delivery" EntityType="Self.Delivery" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Orders" EntityType="Self.Orders" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Role" EntityType="Self.Role" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="StatusTransport" EntityType="Self.StatusTransport" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TOTransport" EntityType="Self.TOTransport" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Transport" EntityType="Self.Transport" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Delivery_Orders" Association="Self.FK_Delivery_Orders">
+            <End Role="Orders" EntitySet="Orders" />
+            <End Role="Delivery" EntitySet="Delivery" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Delivery_Transport" Association="Self.FK_Delivery_Transport">
+            <End Role="Transport" EntitySet="Transport" />
+            <End Role="Delivery" EntitySet="Delivery" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Orders_Users" Association="Self.FK_Orders_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Orders" EntitySet="Orders" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TOTransport_Transport" Association="Self.FK_TOTransport_Transport">
+            <End Role="Transport" EntitySet="Transport" />
+            <End Role="TOTransport" EntitySet="TOTransport" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Transport_StatusTransport" Association="Self.FK_Transport_StatusTransport">
+            <End Role="StatusTransport" EntitySet="StatusTransport" />
+            <End Role="Transport" EntitySet="Transport" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Users_Role" Association="Self.FK_Users_Role">
+            <End Role="Role" EntitySet="Role" />
+            <End Role="Users" EntitySet="Users" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="BD_2905Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Delivery">
+          <Key>
+            <PropertyRef Name="IDDelivery" />
+          </Key>
+          <Property Name="IDDelivery" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IDOrder" Type="Int32" Nullable="false" />
+          <Property Name="IDTransport" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Orders" Relationship="Self.FK_Delivery_Orders" FromRole="Delivery" ToRole="Orders" />
+          <NavigationProperty Name="Transport" Relationship="Self.FK_Delivery_Transport" FromRole="Delivery" ToRole="Transport" />
+        </EntityType>
+        <EntityType Name="Orders">
+          <Key>
+            <PropertyRef Name="IDOrder" />
+          </Key>
+          <Property Name="IDOrder" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DateOrder" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="NameClient" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="LastNameClient" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Phone" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="RasstoyanieDelivery" Type="Int32" Nullable="false" />
+          <Property Name="VesGruza" Type="Int32" Nullable="false" />
+          <Property Name="SrokDelivery" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="CountOrder" Type="Int32" Nullable="false" />
+          <Property Name="IDUser" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Delivery" Relationship="Self.FK_Delivery_Orders" FromRole="Orders" ToRole="Delivery" />
+          <NavigationProperty Name="Users" Relationship="Self.FK_Orders_Users" FromRole="Orders" ToRole="Users" />
+        </EntityType>
+        <EntityType Name="Role">
+          <Key>
+            <PropertyRef Name="IDRole" />
+          </Key>
+          <Property Name="IDRole" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NameRole" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Users" Relationship="Self.FK_Users_Role" FromRole="Role" ToRole="Users" />
+        </EntityType>
+        <EntityType Name="StatusTransport">
+          <Key>
+            <PropertyRef Name="IDStatusTransport" />
+          </Key>
+          <Property Name="IDStatusTransport" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NameStatus" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Transport" Relationship="Self.FK_Transport_StatusTransport" FromRole="StatusTransport" ToRole="Transport" />
+        </EntityType>
+        <EntityType Name="TOTransport">
+          <Key>
+            <PropertyRef Name="IDTO" />
+          </Key>
+          <Property Name="IDTO" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IDTransport" Type="Int32" Nullable="false" />
+          <Property Name="Master" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="PeriodTO" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="Transport" Relationship="Self.FK_TOTransport_Transport" FromRole="TOTransport" ToRole="Transport" />
+        </EntityType>
+        <EntityType Name="Transport">
+          <Key>
+            <PropertyRef Name="IDTransport" />
+          </Key>
+          <Property Name="IDTransport" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Marka" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="GosNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="IDStatusTransport" Type="Int32" Nullable="false" />
+          <Property Name="MestopolozenieTransport" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Delivery" Relationship="Self.FK_Delivery_Transport" FromRole="Transport" ToRole="Delivery" />
+          <NavigationProperty Name="StatusTransport" Relationship="Self.FK_Transport_StatusTransport" FromRole="Transport" ToRole="StatusTransport" />
+          <NavigationProperty Name="TOTransport" Relationship="Self.FK_TOTransport_Transport" FromRole="Transport" ToRole="TOTransport" />
+        </EntityType>
+        <EntityType Name="Users">
+          <Key>
+            <PropertyRef Name="IDUser" />
+          </Key>
+          <Property Name="IDUser" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IDRole" Type="Int32" Nullable="false" />
+          <Property Name="NameUser" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="LastNameUser" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Login" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Orders" Relationship="Self.FK_Orders_Users" FromRole="Users" ToRole="Orders" />
+          <NavigationProperty Name="Role" Relationship="Self.FK_Users_Role" FromRole="Users" ToRole="Role" />
+        </EntityType>
+        <Association Name="FK_Delivery_Orders">
+          <End Role="Orders" Type="Self.Orders" Multiplicity="1" />
+          <End Role="Delivery" Type="Self.Delivery" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Orders">
+              <PropertyRef Name="IDOrder" />
+            </Principal>
+            <Dependent Role="Delivery">
+              <PropertyRef Name="IDOrder" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Delivery_Transport">
+          <End Role="Transport" Type="Self.Transport" Multiplicity="1" />
+          <End Role="Delivery" Type="Self.Delivery" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Transport">
+              <PropertyRef Name="IDTransport" />
+            </Principal>
+            <Dependent Role="Delivery">
+              <PropertyRef Name="IDTransport" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Orders_Users">
+          <End Role="Users" Type="Self.Users" Multiplicity="1" />
+          <End Role="Orders" Type="Self.Orders" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="IDUser" />
+            </Principal>
+            <Dependent Role="Orders">
+              <PropertyRef Name="IDUser" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Users_Role">
+          <End Role="Role" Type="Self.Role" Multiplicity="1" />
+          <End Role="Users" Type="Self.Users" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Role">
+              <PropertyRef Name="IDRole" />
+            </Principal>
+            <Dependent Role="Users">
+              <PropertyRef Name="IDRole" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Transport_StatusTransport">
+          <End Role="StatusTransport" Type="Self.StatusTransport" Multiplicity="1" />
+          <End Role="Transport" Type="Self.Transport" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="StatusTransport">
+              <PropertyRef Name="IDStatusTransport" />
+            </Principal>
+            <Dependent Role="Transport">
+              <PropertyRef Name="IDStatusTransport" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TOTransport_Transport">
+          <End Role="Transport" Type="Self.Transport" Multiplicity="1" />
+          <End Role="TOTransport" Type="Self.TOTransport" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Transport">
+              <PropertyRef Name="IDTransport" />
+            </Principal>
+            <Dependent Role="TOTransport">
+              <PropertyRef Name="IDTransport" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="BD_2905Entities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Delivery" EntityType="Self.Delivery" />
+          <EntitySet Name="Orders" EntityType="Self.Orders" />
+          <EntitySet Name="Role" EntityType="Self.Role" />
+          <EntitySet Name="StatusTransport" EntityType="Self.StatusTransport" />
+          <EntitySet Name="TOTransport" EntityType="Self.TOTransport" />
+          <EntitySet Name="Transport" EntityType="Self.Transport" />
+          <EntitySet Name="Users" EntityType="Self.Users" />
+          <AssociationSet Name="FK_Delivery_Orders" Association="Self.FK_Delivery_Orders">
+            <End Role="Orders" EntitySet="Orders" />
+            <End Role="Delivery" EntitySet="Delivery" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Delivery_Transport" Association="Self.FK_Delivery_Transport">
+            <End Role="Transport" EntitySet="Transport" />
+            <End Role="Delivery" EntitySet="Delivery" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Orders_Users" Association="Self.FK_Orders_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Orders" EntitySet="Orders" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Users_Role" Association="Self.FK_Users_Role">
+            <End Role="Role" EntitySet="Role" />
+            <End Role="Users" EntitySet="Users" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Transport_StatusTransport" Association="Self.FK_Transport_StatusTransport">
+            <End Role="StatusTransport" EntitySet="StatusTransport" />
+            <End Role="Transport" EntitySet="Transport" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TOTransport_Transport" Association="Self.FK_TOTransport_Transport">
+            <End Role="Transport" EntitySet="Transport" />
+            <End Role="TOTransport" EntitySet="TOTransport" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Хранилище BD_2905ModelContainer" CdmEntityContainer="BD_2905Entities">
+          <EntitySetMapping Name="Delivery">
+            <EntityTypeMapping TypeName="BD_2905Model.Delivery">
+              <MappingFragment StoreEntitySet="Delivery">
+                <ScalarProperty Name="IDDelivery" ColumnName="IDDelivery" />
+                <ScalarProperty Name="IDOrder" ColumnName="IDOrder" />
+                <ScalarProperty Name="IDTransport" ColumnName="IDTransport" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Orders">
+            <EntityTypeMapping TypeName="BD_2905Model.Orders">
+              <MappingFragment StoreEntitySet="Orders">
+                <ScalarProperty Name="IDOrder" ColumnName="IDOrder" />
+                <ScalarProperty Name="DateOrder" ColumnName="DateOrder" />
+                <ScalarProperty Name="NameClient" ColumnName="NameClient" />
+                <ScalarProperty Name="LastNameClient" ColumnName="LastNameClient" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="RasstoyanieDelivery" ColumnName="RasstoyanieDelivery" />
+                <ScalarProperty Name="VesGruza" ColumnName="VesGruza" />
+                <ScalarProperty Name="SrokDelivery" ColumnName="SrokDelivery" />
+                <ScalarProperty Name="CountOrder" ColumnName="CountOrder" />
+                <ScalarProperty Name="IDUser" ColumnName="IDUser" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Role">
+            <EntityTypeMapping TypeName="BD_2905Model.Role">
+              <MappingFragment StoreEntitySet="Role">
+                <ScalarProperty Name="IDRole" ColumnName="IDRole" />
+                <ScalarProperty Name="NameRole" ColumnName="NameRole" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="StatusTransport">
+            <EntityTypeMapping TypeName="BD_2905Model.StatusTransport">
+              <MappingFragment StoreEntitySet="StatusTransport">
+                <ScalarProperty Name="IDStatusTransport" ColumnName="IDStatusTransport" />
+                <ScalarProperty Name="NameStatus" ColumnName="NameStatus" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TOTransport">
+            <EntityTypeMapping TypeName="BD_2905Model.TOTransport">
+              <MappingFragment StoreEntitySet="TOTransport">
+                <ScalarProperty Name="IDTO" ColumnName="IDTO" />
+                <ScalarProperty Name="IDTransport" ColumnName="IDTransport" />
+                <ScalarProperty Name="Master" ColumnName="Master" />
+                <ScalarProperty Name="PeriodTO" ColumnName="PeriodTO" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Transport">
+            <EntityTypeMapping TypeName="BD_2905Model.Transport">
+              <MappingFragment StoreEntitySet="Transport">
+                <ScalarProperty Name="IDTransport" ColumnName="IDTransport" />
+                <ScalarProperty Name="Marka" ColumnName="Marka" />
+                <ScalarProperty Name="GosNumber" ColumnName="GosNumber" />
+                <ScalarProperty Name="IDStatusTransport" ColumnName="IDStatusTransport" />
+                <ScalarProperty Name="MestopolozenieTransport" ColumnName="MestopolozenieTransport" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Users">
+            <EntityTypeMapping TypeName="BD_2905Model.Users">
+              <MappingFragment StoreEntitySet="Users">
+                <ScalarProperty Name="IDUser" ColumnName="IDUser" />
+                <ScalarProperty Name="IDRole" ColumnName="IDRole" />
+                <ScalarProperty Name="NameUser" ColumnName="NameUser" />
+                <ScalarProperty Name="LastNameUser" ColumnName="LastNameUser" />
+                <ScalarProperty Name="Login" ColumnName="Login" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Нет" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

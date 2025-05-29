@@ -1,0 +1,35 @@
+﻿<Page x:Class="TransportCompany.PageMain.PageOrder"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:TransportCompany.PageMain"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="Заказы">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="22*"/>
+            <RowDefinition Height="3*"/>
+        </Grid.RowDefinitions>
+
+        <DataGrid x:Name="DtGridTransport" AutoGenerateColumns="False" IsReadOnly="True">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Дата" Binding="{Binding DateOrder}" Width="30*"></DataGridTextColumn>
+                <DataGridTextColumn Header="Имя клиента" Binding="{Binding NameClient}" Width="25*"/>
+                <DataGridTextColumn Header="Фамилия клиента" Binding="{Binding LastNameClient}" Width="25*"/>
+                <DataGridTextColumn Header="Телефон" Binding="{Binding Phone}" Width="25*"/>
+                <DataGridTextColumn Header="Расстояние доставки" Binding="{Binding RasstoyanieDelivery}" Width="25*"/>
+                <DataGridTextColumn Header="Вес груза" Binding="{Binding VesGruza}" Width="25*"/>
+                <DataGridTextColumn Header="Срок доставки" Binding="{Binding SrokDelivery}" Width="25*"/>
+                <DataGridTextColumn Header="Стоимость заказа" Binding="{Binding CountOrder}" Width="25*"/>
+                <DataGridTemplateColumn Width="auto">
+                </DataGridTemplateColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+        <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center">
+            <Button Content="Назад" x:Name="BtnBack3" Click="BtnBack3_Click" Style="{StaticResource ButtonMain}"/>
+        </StackPanel>
+    </Grid>
+</Page>

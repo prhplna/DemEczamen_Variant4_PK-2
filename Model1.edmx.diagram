@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="7824ed29d1ab42e7a7f3dedeffd7e3c7" Name="Diagram1">
+        <EntityTypeShape EntityType="BD_2905Model.Delivery" Width="1.5" PointX="5.25" PointY="2.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="BD_2905Model.Orders" Width="1.5" PointX="3" PointY="6.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="BD_2905Model.Role" Width="1.5" PointX="1.5" PointY="11.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="BD_2905Model.StatusTransport" Width="1.5" PointX="0.75" PointY="2.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="BD_2905Model.TOTransport" Width="1.5" PointX="5.25" PointY="5.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="BD_2905Model.Transport" Width="1.5" PointX="3" PointY="2.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="BD_2905Model.Users" Width="1.5" PointX="0.75" PointY="7.125" IsExpanded="true" />
+        <AssociationConnector Association="BD_2905Model.FK_Delivery_Orders" ManuallyRouted="false" />
+        <AssociationConnector Association="BD_2905Model.FK_Delivery_Transport" ManuallyRouted="false" />
+        <AssociationConnector Association="BD_2905Model.FK_Orders_Users" ManuallyRouted="false" />
+        <AssociationConnector Association="BD_2905Model.FK_Users_Role" ManuallyRouted="false" />
+        <AssociationConnector Association="BD_2905Model.FK_Transport_StatusTransport" ManuallyRouted="false" />
+        <AssociationConnector Association="BD_2905Model.FK_TOTransport_Transport" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
